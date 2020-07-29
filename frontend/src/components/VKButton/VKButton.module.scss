@@ -1,0 +1,22 @@
+.vk-button__input {
+  width: 150px;
+  display: flex;
+  background-color: #4680c2;
+  align-items: center;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  padding-right: 20px;
+  cursor: pointer;
+}
+
+.vk-button {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.vk-button__input-icon {
+  margin-right: 10px;
+  width: 60px;
+}

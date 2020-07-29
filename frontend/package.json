@@ -1,0 +1,50 @@
+{
+  "name": "vk-auth-react",
+  "version": "0.0.1",
+  "private": true,
+  "author": "Andrew Boev",
+  "dependencies": {
+    "@types/node": "^12.0.0",
+    "@types/react": "^16.9.0",
+    "@types/react-dom": "^16.9.0",
+    "@types/react-router-dom": "^5.1.3",
+    "mobx": "^5.15.4",
+    "mobx-react": "^6.1.8",
+    "node-sass": "^4.13.1",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.0",
+    "typescript": "~3.7.2"
+  },
+  "scripts": {
+    "dev": "cross-env REACT_APP_API_HOST=http://localhost:8888 react-scripts start",
+    "build": "cross-env REACT_APP_MODE=production react-scripts build",
+    "prod": "cross-env REACT_APP_MODE=production react-scripts start",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "concurrently": "^5.1.0",
+    "cross-env": "^7.0.2",
+    "prettier": "2.0.5",
+    "serve": "^11.3.0",
+    "typed-css-modules": "^0.6.3",
+    "typescript-plugin-css-modules": "^2.2.0"
+  }
+}

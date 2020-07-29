@@ -1,0 +1,14 @@
+version: '3.4'
+services:
+  db:
+    image: postgres
+    env_file: .env
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    healthcheck:
+      test: "cat /proc/net/tcp /proc/net/tcp6 | grep ':0CEB'"
+      interval: 10s
+      timeout: 5s
+      retries: 5

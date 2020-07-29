@@ -1,0 +1,28 @@
+.user-page {
+  text-align: center;
+
+  .user-page__name {
+    font-weight: bold;
+    font-size: 24px;
+  }
+
+  .user-page__email {
+    color: rgba(119, 119, 119, 0.8);
+  }
+
+  p + p {
+    margin-top: 5px;
+  }
+
+  .user-page__logout {
+    width: 120px;
+    cursor: pointer;
+    padding: 10px 20px;
+    margin-top: 20px;
+  }
+
+  .user-page__avatar {
+    border-radius: 50%;
+    margin-bottom: 20px;
+  }
+}
