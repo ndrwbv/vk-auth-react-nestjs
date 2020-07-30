@@ -1,12 +1,31 @@
 import React from "react";
+import { observer } from "mobx-react";
+import { Link, useHistory } from "react-router-dom";
+
+import { useStores } from "stores/useStores";
+import { RequestState } from "types/RequestState";
 
 import styles from "./LayoutDefault.module.scss";
-import { Link } from "react-router-dom";
-import { IUser } from "stores/UserStore";
-import { useStores } from "stores/useStores";
 
-const LayoutDefault: React.FC = (props) => {
-  const user: IUser = useStores()["UserStore"].user;
+const PRIVATE_ROUTES = ["/user"];
+
+const LayoutDefault: React.FC = observer((props) => {
+  const { user, state, getProfile, logout } = useStores()["UserStore"];
+  let history = useHistory();
+
+  React.useEffect(() => {
+    const token = sessionStorage.getItem("token");
+
+    if (PRIVATE_ROUTES.includes(history.location.pathname) && !token)
+      return history.push("/signin");
+
+    if (!user && state !== RequestState.LOADING && token) {
+      getProfile().catch(() => {
+        history.push("/signin");
+        logout();
+      });
+    }
+  }, [user, state, getProfile, logout, history]);
 
   return (
     <div className={styles["layout-default"]}>
@@ -15,12 +34,12 @@ const LayoutDefault: React.FC = (props) => {
         {user ? (
           <Link to="/user">Мой профиль</Link>
         ) : (
-          <Link to="/user">Войти</Link>
+          <Link to="/signin">Войти</Link>
         )}
       </div>
       <div className={styles["layout-default__content"]}>{props.children}</div>
     </div>
   );
-};
+});
 
 export default LayoutDefault;

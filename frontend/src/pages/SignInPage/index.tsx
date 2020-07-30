@@ -1,14 +1,11 @@
 import React from "react";
-import { RouteComponentProps } from "react-router-dom";
 
 import VKButton from "components/VKButton";
-
-import styles from "./SignInPage.module.scss";
 import LayoutDefault from "components/LayoutDefault";
 
-interface IProps extends RouteComponentProps {}
+import styles from "./SignInPage.module.scss";
 
-const SignInPage: React.FC<IProps> = (props) => {
+const SignInPage: React.FC = () => {
   return (
     <LayoutDefault>
       <div className={styles["signin-page"]}>

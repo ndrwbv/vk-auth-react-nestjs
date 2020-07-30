@@ -3,6 +3,11 @@ import { Entity, Column } from "typeorm";
 
 @Entity()
 export class UserEntity extends BaseEntity {
+  @Column({
+    nullable: true,
+  })
+  vk_id: number;
+
   @Column()
   name: string;
 

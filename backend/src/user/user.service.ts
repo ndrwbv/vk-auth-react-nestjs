@@ -47,6 +47,14 @@ export class UserService {
     });
   }
 
+  async findByVkId(vk_id: number): Promise<User | null> {
+    return await this.userRepository.findOne({
+      where: {
+        vk_id,
+      },
+    });
+  }
+
   async findById(id: number): Promise<UserEntity | null> {
     return await this.userRepository.findOneOrFail(id);
   }

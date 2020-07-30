@@ -5,7 +5,7 @@ import {
   ValidationPipe,
   UnprocessableEntityException,
 } from "@nestjs/common";
-import { AuthModel, UserModel, AuthVK, IGrant } from "./../models";
+import { AuthModel, UserModel, AuthVK, IGrant, UserDTO } from "./../models";
 import { AuthService } from "./auth.service";
 import { UserService } from "./../user";
 
@@ -17,7 +17,7 @@ export class AuthController {
   ) {}
 
   @Post("/login/vk")
-  async vk(@Body(new ValidationPipe()) auth: AuthVK): Promise<any> {
+  async vk(@Body(new ValidationPipe()) auth: AuthVK): Promise<UserDTO> {
     let authData;
 
     try {
@@ -26,14 +26,14 @@ export class AuthController {
       throw new UnprocessableEntityException("Wrong VK code");
     }
 
-    if (!authData.data.hasOwnProperty("email")) {
-      throw new UnprocessableEntityException("Email should be provided");
-    }
+    const hasEmail = authData.data.hasOwnProperty("email");
 
-    const emailUser = await this.userService.findByEmail(authData.data.email);
+    const _user = hasEmail
+      ? await this.userService.findByEmail(authData.data.email)
+      : await this.userService.findByVkId(authData.data.user_id);
 
-    if (emailUser) {
-      return this.authService.authenticate(emailUser, true);
+    if (_user) {
+      return this.authService.authenticate(_user, true);
     }
 
     try {
@@ -45,6 +45,7 @@ export class AuthController {
       const profile = data.response[0];
 
       let user: UserModel = {
+        vk_id: authData.data.user_id,
         email: authData.data.email,
         password: null,
         name: `${profile.first_name} ${profile.last_name}`,
@@ -61,18 +62,18 @@ export class AuthController {
   }
 
   @Post("/login")
-  async login(@Body(new ValidationPipe()) auth: AuthModel): Promise<string> {
+  async login(@Body(new ValidationPipe()) auth: AuthModel): Promise<UserDTO> {
     return this.authService.authenticate(auth);
   }
 
   @Post("/register")
   async register(
     @Body(new ValidationPipe()) userModel: UserModel
-  ): Promise<string> {
+  ): Promise<UserDTO> {
     const emailExists = await this.userService.findByEmail(userModel.email);
 
     if (emailExists) {
-      throw new UnprocessableEntityException();
+      throw new UnprocessableEntityException("Email already exists!");
     }
 
     await this.userService.create(userModel);

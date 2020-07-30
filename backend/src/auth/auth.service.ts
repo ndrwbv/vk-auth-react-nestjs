@@ -4,7 +4,7 @@ import { JwtService } from "@nestjs/jwt";
 import { UserService } from "./../user";
 import { UserEntity } from "../entities";
 import { JwtPayloadInterface } from "./interfaces";
-import { AuthModel } from "../models";
+import { AuthModel, UserDTO } from "../models";
 
 @Injectable()
 export class AuthService {
@@ -21,7 +21,7 @@ export class AuthService {
   async authenticate(
     auth: AuthModel,
     skipPasswordCheck: boolean = false
-  ): Promise<any> {
+  ): Promise<UserDTO> {
     const user = await this.userService.findByEmailWithPassword(auth.email);
 
     if (!user) {
@@ -39,6 +39,7 @@ export class AuthService {
 
     return {
       id: user.id,
+      vk_id: user.vk_id,
       email: user.email,
       grant: user.grant,
       name: user.name,

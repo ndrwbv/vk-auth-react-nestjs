@@ -1,14 +1,17 @@
 .vk-button__input {
-  width: 150px;
   display: flex;
-  background-color: #4680c2;
+
   align-items: center;
-  color: white;
+  color: #4680c2;
   border: none;
   border-radius: 10px;
   font-weight: bold;
   padding-right: 20px;
   cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
 }
 
 .vk-button {

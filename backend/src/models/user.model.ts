@@ -6,6 +6,8 @@ export enum IGrant {
 }
 
 export class UserModel {
+  vk_id?: number;
+
   @IsEmail()
   email: string;
 
@@ -19,4 +21,14 @@ export class UserModel {
   grant: IGrant;
 
   avatar_url?: string;
+}
+
+export class UserDTO {
+  id: number;
+  vk_id: number;
+  email: string;
+  name: string;
+  grant: IGrant;
+  avatar_url: string;
+  token: string;
 }

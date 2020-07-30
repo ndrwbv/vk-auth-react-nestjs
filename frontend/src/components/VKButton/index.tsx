@@ -49,7 +49,7 @@ const VKButton: React.FC<IProps> = (props) => {
           alt="vk logo"
           className={styles["vk-button__input-icon"]}
         />
-        Вконтакте
+        Войти через Вконтакте
       </button>
       {isError && <p style={{ color: "red" }}>Ошибка входа через ВК</p>}
     </div>

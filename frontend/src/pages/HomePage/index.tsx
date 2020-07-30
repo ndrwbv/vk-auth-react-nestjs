@@ -1,10 +1,12 @@
 import React from "react";
-import LayoutDefault from "components/LayoutDefault";
+import { observer } from "mobx-react";
 
 import { useStores } from "stores/useStores";
 import { IUser } from "stores/UserStore";
 
-const HomePage = () => {
+import LayoutDefault from "components/LayoutDefault";
+
+const HomePage = observer(() => {
   const user: IUser = useStores()["UserStore"].user;
 
   return (
@@ -13,6 +15,6 @@ const HomePage = () => {
       {user && <p>О привет, {user.name}</p>}
     </LayoutDefault>
   );
-};
+});
 
 export default HomePage;

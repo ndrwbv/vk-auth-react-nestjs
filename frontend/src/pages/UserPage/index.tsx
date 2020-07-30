@@ -15,13 +15,8 @@ interface IProps extends RouteComponentProps {
 
 class UserPage extends React.Component<IProps> {
   componentDidMount() {
-    const { getProfile, user } = this.props.UserStore;
     const token = sessionStorage.getItem("token");
-
     if (!token) return this.props.history.push("/signin");
-
-    if (!user)
-      return getProfile().catch(() => this.props.history.push("/signin"));
   }
 
   handleLogout = () => {
